@@ -33,6 +33,7 @@
     #why { scroll-margin-top: 120px; }
     #contact { scroll-margin-top: 90px; }
     #projects { scroll-margin-top: 70px; }
+    #education { scroll-margin-top: 145px; }
 
     /* Topbar */
     .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--border)}
@@ -167,6 +168,14 @@ a, a:hover, a:focus, a:visited {
     .contact-ttl{margin:8px 0 4px;font-size:1.2rem;font-weight:900}
     .contact-sub{color:var(--muted);font-weight:700}
 
+    .edu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+    .edu-card{background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);border-radius:16px;padding:20px;display:grid;grid-template-columns:72px 1fr;gap:16px;align-items:start}
+    .edu-badge{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;background:var(--chip);border:1px solid var(--border);font-weight:900;color:#4a3d77}
+    .edu-head{margin:0 0 6px;font-size:1.15rem;font-weight:900;color:#1d234a}
+    .edu-meta{margin:0 0 10px;color:#6b7280;font-weight:700;font-size:.95rem}
+    .edu-list{margin:8px 0 0 18px;color:#3a3e52;line-height:1.7}
+    @media (max-width:900px){ .edu-grid{grid-template-columns:1fr} }
+
     /* ▼ “아래로 내려가기” 버튼 */
     .scroll-down{
       display:inline-block;width:140px;height:45px;line-height:45px;text-align:center;
@@ -274,6 +283,7 @@ a, a:hover, a:focus, a:visited {
     <div class="topbar-inner">
       <a class="brand" href="#about">ABOUT</a>
       <nav class="nav" aria-label="섹션">
+        <a href="#education">교육</a>
         <a href="#projects">프로젝트</a>
         <a href="#stack">기술스택</a>
         <a href="#why">WHY CHOOSE ME</a>
@@ -307,6 +317,49 @@ a, a:hover, a:focus, a:visited {
       </div>
     </div>
   </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container">
+      <h2 class="title">EDUCATION</h2>
+  
+      <div class="edu-grid">
+        <!-- 부트캠프 1544h -->
+        <article class="edu-card">
+          <img src="경일아카데미.png" alt="블록체인 아이콘">
+          <div>
+            <h3 class="edu-head">블록체인 기반 웹 풀스택 부트캠프</h3>
+            <p class="edu-meta">경일게임IT아카데미 · 2024.12.30 ~ 2025.09.19 · 1544시간</p>
+            <ul class="edu-list">
+              <li>Solidity로 컨트랙트 작성, DApp 흐름까지 끝까지 구현</li>
+              <li>JavaScript/Node.js/React로 서비스 한 사이클 만들기</li>
+              <li>DB 설계–API–배포(운영 기초)까지 전 과정 연습</li>
+              <li>팀 프로젝트로 블록체인 서비스 기획·개발 경험</li> <!-- ★ 추가 -->
+            </ul>
+          </div>
+        </article>
+  
+        <!-- 자바 네이티브 800h -->
+        <article class="edu-card">
+          <img src="이젠컴퓨터아카데미.png" alt="교육">
+          <div>
+            <h3 class="edu-head">자바 네이티브 웹·앱 개발 과정</h3>
+            <p class="edu-meta">이젠컴퓨터아카데미 · 2023.02.21 ~ 2023.07.17 · 800시간</p>
+            <ul class="edu-list">
+              <li>Java/JSP/Spring으로 기본기 다지기, 팀 단위 협업 경험</li>
+              <li>React Native로 모바일 UI 흐름 이해</li>
+              <li>Oracle로 SQL 기초, 깃으로 협업 습관 들이기</li>
+              <li>작은 규모의 웹 서비스 시연 프로젝트 수행</li> <!-- ★ 추가 -->
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  
+  
+
+
 
   <!-- PROJECTS -->
   <section id="projects">
