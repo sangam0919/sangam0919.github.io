@@ -29,6 +29,7 @@
 
 
     /* section 별맞춤 */
+    
     #stack { scroll-margin-top: 70px; }
     #why { scroll-margin-top: 120px; }
     #contact { scroll-margin-top: 90px; }
@@ -38,11 +39,29 @@
     /* Topbar */
     .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--border)}
     .topbar-inner{max-width:1140px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:18px}
-    .brand{font-weight:800;letter-spacing:.2px;background:#f5f1ff;color:var(--primary-strong);padding:6px 10px;border-radius:10px;text-decoration:none}
+    /* .brand{font-weight:800;letter-spacing:.2px;background:#f5f1ff;color:var(--primary-strong);padding:6px 10px;border-radius:10px;text-decoration:none} */
+    .brand{
+      font-weight:800; letter-spacing:.2px;
+      padding:6px 10px; border-radius:10px; text-decoration:none;
+      color:var(--text); background:transparent;   /* ← 기본색 제거 */
+    }
+    .brand:hover{ background:#f1ecff; color:var(--primary-strong); }
     .nav{display:flex;gap:10px;overflow:auto}
     .nav a{padding:8px 12px;border-radius:10px;font-weight:700;color:var(--text);text-decoration:none;white-space:nowrap}
     .nav a:hover{background:#f1ecff;color:var(--primary-strong)}
-
+    /* .nav a.active,
+      .nav a[aria-current="page"]{
+        background:#f1ecff;
+        color:var(--primary-strong);
+      } */
+      /* nav 링크     brand 둘 다 active일 때만 칠하기 */
+     .nav a.active,
+     .nav a[aria-current="page"],
+     .brand.active,
+     .brand[aria-current="page"]{
+       background:#f1ecff;
+       color:var(--primary-strong);
+     }
     /* Hero Section */
     .hero{
       position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;
@@ -1305,6 +1324,49 @@ a, a:hover, a:focus, a:visited {
         openProjectModalFrom(scr);
       }
     });
+    // const navLinks = Array.from(document.querySelectorAll('.topbar .nav a'));
+    const navLinks = Array.from(document.querySelectorAll('.topbar a[href^="#"]')); // ← ABOUT 포함
+const linkMap = navLinks.map(a => {
+  const id = a.getAttribute('href')?.replace('#','');
+  const sec = id ? document.getElementById(id) : null;
+  return { a, sec, id };
+});
+
+function setActive(linkEl){
+  navLinks.forEach(x => {
+    x.classList.remove('active');
+    x.removeAttribute('aria-current');
+  });
+  if(linkEl){
+    linkEl.classList.add('active');
+    linkEl.setAttribute('aria-current','page');
+  }
+}
+
+// 클릭하면 즉시 활성화
+linkMap.forEach(({ a }) => {
+   a.addEventListener('click', () => setActive(a));
+ });
+
+// 스크롤 스파이: 화면에 60% 이상 보이는 섹션을 active 처리
+const io = new IntersectionObserver((entries) => {
+  let top = null;
+  for (const e of entries) {
+    if (!e.isIntersecting) continue;
+    if (!top || e.intersectionRatio > top.intersectionRatio) top = e;
+  }
+  if (!top) return;
+  const secId = top.target.id;
+  const item = linkMap.find(x => x.id === secId);
+  if (item) setActive(item.a);
+}, {
+   threshold: [0.1],
+   rootMargin: '-80px 0px -40% 0px'
+ });
+
+// 관찰 시작
+linkMap.forEach(({sec}) => sec && io.observe(sec));
+
   </script>
 </body>
 </html>
