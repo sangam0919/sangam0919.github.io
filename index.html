@@ -155,6 +155,48 @@ a, a:hover, a:focus, a:visited {
     .skill-badges .chip{display:inline-flex;align-items:center;gap:8px}
     .skill-badges i{font-size:18px;opacity:.9}
 
+    /* 공통 칩 */
+.skill-badges { display:flex; flex-wrap:wrap; gap:8px; }
+.chip{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:8px 12px; border-radius:999px; font-weight:600; font-size:14px;
+  border:1px solid var(--border, #e6e6ef); background:#fff; position:relative;
+}
+
+/* LV 배지 (칩 오른쪽 상단 작은 라벨) */
+.chip::after{
+  content: attr(data-lv-label); /* fallback용: 클래스로 덮어씌움 */
+  position:absolute; top:-8px; right:-8px;
+  font-size:10px; font-weight:800; padding:2px 6px; border-radius:999px;
+  border:1px solid rgba(0,0,0,.06); background:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+}
+
+/* 레벨 색상 */
+.lv1{ border-color:#d8ccff; background:linear-gradient(0deg,#ffffff,#faf7ff); }
+.lv1::after{ content:"LV1"; color:#4b2fb6; background:#efe9ff; border-color:#e2d7ff; }
+
+.lv2{ border-color:#cfe9ff; background:linear-gradient(0deg,#ffffff,#f7fbff); }
+.lv2::after{ content:"LV2"; color:#0d66b6; background:#e6f3ff; border-color:#d5ecff; }
+
+.lv3{ border-color:#e8f3d8; background:linear-gradient(0deg,#ffffff,#f9fcf3); }
+.lv3::after{ content:"LV3"; color:#4b7f1f; background:#eef8df; border-color:#e0f1cc; }
+
+.lv4{ border-color:#f2e3d8; background:linear-gradient(0deg,#ffffff,#fdf8f5); }
+.lv4::after{ content:"LV4"; color:#9a530c; background:#faeee5; border-color:#f3dfcf; }
+
+/* Legend */
+.lv-legend{ display:flex; gap:8px; margin:8px 0 18px; flex-wrap:wrap; }
+.legend-chip{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 10px; border-radius:999px; font-weight:700; font-size:12px; border:1px solid #eee;
+}
+.legend-chip.lv1{ background:#efe9ff; color:#4b2fb6; }
+.legend-chip.lv2{ background:#e6f3ff; color:#0d66b6; }
+.legend-chip.lv3{ background:#eef8df; color:#4b7f1f; }
+.legend-chip.lv4{ background:#faeee5; color:#9a530c; }
+
+
     /* WHY */
     .why{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
     .why-card{background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);border-radius:16px;padding:20px 22px;display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:start}
@@ -267,6 +309,23 @@ a, a:hover, a:focus, a:visited {
       .contact-grid{grid-template-columns:repeat(2,1fr)}
       .stack-grid{grid-template-columns:1fr}
     }
+
+    /* 우측 설명 영역 시각 정리 */
+.modal-text { display: grid; gap: 16px; }
+.modal-text h4 { margin: 8px 0; font-weight: 800; }
+.modal-text .kv { padding-left: 18px; }
+.block { padding: 14px 16px; border: 1px solid var(--divider, #e9e3f3); border-radius: 12px; background: var(--surface, #fff); }
+.block.backend { border-left: 4px solid #6f52c6; }
+.block.frontend { border-left: 4px solid #ff9ac7; }
+.block.issues .split { display: grid; gap: 10px; padding-left: 0; list-style: none; }
+.block .tag{
+  display:inline-block; font-size:12px; font-weight:700;
+  padding:2px 8px; border-radius:999px; margin-right:8px;
+  background:#f3ecff; color:#4a3d77;
+}
+.modal-text ul { padding-left: 18px; }
+.modal-text li { margin: 6px 0; line-height: 1.5; }
+
   </style>
 </head>
 <body>
@@ -382,7 +441,7 @@ a, a:hover, a:focus, a:visited {
             </div>
         
             <div class="proj-meta">
-              <div class="date">2025.08.06 – 2025.09.19</div>
+              <div class="date">2025.08.06 – 2025.09.19 (44일)</div>
               <h3>MPS B2B 음원 사이트</h3>
               <p><span class="about-dot">About.</span> 기업 회원을 위한 블록체인 기반 음원 사용 통계 및 리워드 관리 플랫폼.</p>
               <br><span class="about-dot">Detail.</span> Next.js, NestJS, PostgreSQL, Solidity/Web3로 </br> API 키/구독/리워드 기능 구현. 실사용 엔드포인트와 대시보드 제공.</p>
@@ -418,52 +477,70 @@ a, a:hover, a:focus, a:visited {
                   </div>
               
                   <!-- 오른쪽: 목적 · 담당 역할 · 문제/해결 · 결과/배운점 -->
-                  <div class="modal-text">
-                    <h4>프로젝트 개요</h4>
-                    <ul>
-                      <li><b>기간</b> : 2025.08.06 ~ 2025.09.17 / <b>인원</b> : 3명</li>
-                      <li><b>목적</b> : 기업 회원의 음원 사용량·리워드를 한 곳에서 관리하고, 구독/리워드 기반 결제를 지원</li>
-                    </ul>
-              
-                    <h4>담당 역할 (클라이언트 풀스택)</h4>
-                    <ul>
-                      <li><b>회원 시스템</b> : 자체 회원가입/로그인, <b>국세청 API</b>로 사업자 검증, 기업 전용 권한</li>
-                      <li><b>구독/결제</b> : 구독권 결제 + 리워드(토큰) 기반 결제 로직</li>
-                      <li><b>메인/목록</b> : 최신·인기, 장르/무드/형식 필터, 로그인/구독 상태별 접근 분리, 무한 스크롤</li>
-                      <li><b>AI 태그</b> : OpenAI API로 2시간마다 무드 태그 자동 정규화(관리자 태그 매핑)</li>
-                      <li><b>마이페이지</b> : 구독/리워드 내역·유효기간, API 키 발급/회전, 플레이리스트, 프로필 수정</li>
-                      <li><b>플레이어</b> : 하단 고정형 재생바, 연속 재생</li>
-                      <li><b>UX</b> : 다크 모드, 아코디언 필터 UI 적용</li>
-                    </ul>
-              
-                    <h4>문제 & 해결</h4>
-                    <ul>
-                      <li>
-                        <b>리스트/필터 성능 저하</b> : 초기엔 다중 쿼리와 반복 렌더로 느림 → 
-                        <u>단일 쿼리화</u>와 데이터 구조 개선, 렌더 최소화로 체감 속도 향상
-                      </li>
-                      <li>
-                        <b>권한 분리 복잡성</b> : 무료/구독/기업 권한이 뒤섞여 접근 제어가 혼란 → 
-                        <u>상태 기반 가드</u>와 정렬/필터 조건 공통 모듈화로 안정화
-                      </li>
-                      <li>
-                        <b>태그 일관성 문제</b> : 입력 태그 편차로 검색 하락 → 
-                        <u>AI 정규화</u>(2시간 주기)로 태그 품질/검색 일관성 확보
-                      </li>
-                      <li>
-                        <b>배포/운영</b> : 정적 자산 캐시·버전 충돌 → 
-                        <u>S3+CloudFront</u> 캐시 키 버저닝, 무중단 배포/롤백, 환경변수 분리로 해결
-                      </li>
-                    </ul>
-              
-                    <h4>결과 & 배운 점</h4>
-                    <ul>
-                      <li>복잡한 <b>권한/정렬/필터</b> 로직을 안정적으로 반영하는 방법 체득</li>
-                      <li>핵심 먼저, 이후 점진 개선하는 <b>우선순위 전략</b> 적용</li>
-                      <li>로그/보안/환경변수/롤백 등 <b>운영 관점</b>까지 챙긴 경험</li>
-                    </ul>
-                  </div>
-                </div>
+<!-- 오른쪽: 백엔드(위) · 프론트엔드(아래) · 문제/해결 · 결과/배운점 -->
+<div class="modal-text">
+  <h4>프로젝트 개요</h4>
+  <ul class="kv">
+    <li><b>기간</b> : 2025.08.06 ~ 2025.09.17 / <b>인원</b> : 3명</li>
+    <li><b>목적</b> : 기업 회원의 음원 사용량·리워드를 한 곳에서 관리하고, 구독/리워드 기반 결제를 지원</li>
+  </ul>
+
+  <section class="block backend">
+    <h4>백엔드</h4>
+    <ul>
+      <li><b>스택</b> : NestJS · PostgreSQL · Drizzle ORM · JWT · Cron</li>
+      <li><b>도메인</b> : 기업/회원 · 음원/플레이리스트 · 사용로그 · 리워드/구독</li>
+      <li><b>사업자 검증</b> : <b>국세청(ODCloud/NTS)</b> API 연동, 기업 권한 부여</li>
+      <li><b>구독/리워드</b> : 플랜/기간/자동결제 필드, 리워드 차감/적립 트랜잭션</li>
+      <li><b>AI 태그 정규화</b> : 2시간마다 <b>OpenAI</b> 호출 → <b>raw_tags → music_tags</b> 매핑</li>
+      <li><b>운영</b> : S3 업로드, CloudFront 캐시 무효화 키 버저닝, 롤백 전략/환경변수 분리</li>
+    </ul>
+  </section>
+
+  <section class="block frontend">
+    <h4>프론트엔드</h4>
+    <ul>
+      <li><b>스택</b> : Next.js · React · Tailwind · Redux</li>
+      <li><b>목록/검색</b> : 최신·인기 정렬, <b>장르/무드/형식</b> 필터, 무한 스크롤</li>
+      <li><b>접근 제어</b> : <b>로그인/구독/기업</b> 상태 가드, 버튼/메뉴 단계적 노출</li>
+      <li><b>플레이어</b> : 하단 고정 재생바, 큐/연속 재생, 커버/진행바 UI</li>
+      <li><b>마이페이지</b> : 구독/리워드 내역, <b>API 키 발급·회전</b>, 플레이리스트/프로필 관리</li>
+      <li><b>UX</b> : 다크 모드, 아코디언 필터, 스켈레톤/토스트/에러 경계</li>
+    </ul>
+  </section>
+
+  <section class="block issues">
+    <h4>문제 & 해결</h4>
+    <ul class="split">
+      <li>
+        <div class="tag">백엔드</div>
+        <b>다중 쿼리로 응답 지연</b> → 목록·필터를 <b>단일 쿼리</b>로 통합, 인덱스/SELECT 필드 절식으로 <b>p95 응답 ↓</b>
+      </li>
+      <li>
+        <div class="tag">프론트</div>
+        <b>권한 분기 복잡</b> → <b>상태 가드</b>와 필터/정렬 <b>공통 훅</b>으로 일원화, 조건 중복 제거
+      </li>
+      <li>
+        <div class="tag">백엔드</div>
+        <b>태그 편차로 검색 정확도 저하</b> → <b>AI 정규화</b> 배치로 품질/일관성 확보
+      </li>
+      <li>
+        <div class="tag">운영</div>
+        <b>정적 자산 캐시 충돌</b> → CloudFront <b>버전 키</b> 도입, 무중단 배포·롤백 절차 확립
+      </li>
+    </ul>
+  </section>
+
+  <section class="block learnings">
+    <h4>결과 & 배운 점</h4>
+    <ul>
+      <li><b>권한·정렬·필터</b>처럼 얽힌 요구사항을 안전하게 구조화하는 법 체득</li>
+      <li>핵심 경로부터 고정하고 점진 개선하는 <b>우선순위 전략</b> 적용</li>
+      <li>로그/보안/환경/캐시/롤백 등 <b>운영 관점</b>까지 고려하는 습관</li>
+    </ul>
+  </section>
+</div>
+
               </template>
             </div>
           </div>
@@ -478,7 +555,7 @@ a, a:hover, a:focus, a:visited {
               </div>
             </div>
             <div class="proj-meta">
-              <div class="date">2025.06.04 – 2025.07.17</div>
+              <div class="date">2025.07.04 – 2025.07.17 (13일)</div>
               <h3>SA 거래소</h3>
               <p><span class="about-dot">About.</span> 업비트 API·실시간 차트 기반 모의 거래.</p>
               <p><span class="about-dot">Detail.</span> 매수/매도, 자산, 알림, 실시간 시세.</p>
@@ -506,51 +583,72 @@ a, a:hover, a:focus, a:visited {
                   </div>
               
                   <!-- Right: 개요 · 역할 · 문제/해결 · 현재상태/계획 · 배운점 -->
-                  <div class="modal-text">
-                    <h4>프로젝트 개요</h4>
-                    <ul>
-                      <li><b>기간</b> : 2025.06.04 ~ 2025.07.17 / <b>인원</b> : 1명</li>
-                      <li><b>목적</b> : 실시간 시세 반영과 매수·매도 체결, 자산 관리 UX 구현 +
-                        토큰 발행/교환 체험 환경 제공</li>
-                    </ul>
-              
-                    <h4>담당 역할</h4>
-                    <ul>
-                      <li><b>실시간 시세</b> : 업비트 Open API(WebSocket) 수신 → 차트 즉시 반영</li>
-                      <li><b>거래/자산</b> : 매수 로직, 보유 코인/잔액 조회, 가격 변동 알림</li>
-                      <li><b>인증</b> : 카카오 로그인 기반 접근 제어</li>
-                      <li><b>토큰 설계</b> : 가상 자산을 1:1 비율 토큰으로 환산·처리</li>
-                      <li><b>스택</b> : React · Node.js · MySQL · Hardhat · Solidity</li>
-                    </ul>
-              
-                    <h4>문제 & 해결</h4>
-                    <ul>
-                      <li>
-                        <b>실시간 차트 지연/끊김</b> → 데이터 <u>버퍼링</u>, <u>간격 샘플링</u>, 
-                        렌더 <u>최소화</u>로 프레임 드랍 개선(필요 구간만 업데이트)
-                      </li>
-                    </ul>
-              
-                    <h4>현재 상태 & 향후 계획</h4>
-                    <ul>
-                      <li>
-                        <b>매수 완료, 매도 진행중</b> — 잔액/보유 자산 동기화와 원자성 보장을 위해
-                        <u>orders / fills / balances</u>를 한 트랜잭션으로 처리하는 구조로 보완 예정
-                        (체결성공 시 잔액 감소·보유코인 증가가 함께 커밋/롤백되도록).
-                      </li>
-                      <li>
-                        <b>배포 예정</b> — 매도 로직 안정화 후 배포·모니터링·알림까지 연결.
-                      </li>
-                    </ul>
-              
-                    <h4>배운 점</h4>
-                    <ul>
-                      <li>실시간 스트림 처리와 렌더링 최적화 패턴</li>
-                      <li>체결/자산 업데이트의 일관성·원자성 보장의 중요성</li>
-                      <li>WebSocket ↔ UI 동기화 전략 정립</li>
-                    </ul>
-                  </div>
-                </div>
+<!-- Right: 백엔드(위) · 프론트엔드(아래) · 문제/해결 · 현재상태/계획 · 배운점 -->
+<div class="modal-text">
+  <h4>프로젝트 개요</h4>
+  <ul class="kv">
+    <li><b>기간</b> : 2025.06.04 ~ 2025.07.17 / <b>인원</b> : 1명</li>
+    <li><b>목적</b> : 실시간 시세 반영·체결(매수/매도)·자산 관리 UX 구현 + 토큰 발행/교환 체험</li>
+  </ul>
+
+  <section class="block backend">
+    <h4>백엔드</h4>
+    <ul>
+      <li><b>스택</b> : Node.js · MySQL · Express · Hardhat · Solidity</li>
+      <li><b>시세 프록시</b> : 업비트 <b>WebSocket</b> 수신 → 서버에서 정제/스로틀 → 클라 전달</li>
+      <li><b>거래 모델</b> : <b>orders / fills / balances</b> 스키마로 체결·잔액 <b>원자성</b> 보장 설계</li>
+      <li><b>토큰</b> : <b>KRW / BTC</b> ERC20 발행, 1:1 환산 규칙으로 장부 일관성 유지</li>
+      <li><b>보안/운영</b> : 환경변수 분리, 에러/체결 로그, 배포 시 롤백 전략 마련</li>
+    </ul>
+  </section>
+
+  <section class="block frontend">
+    <h4>프론트엔드</h4>
+    <ul>
+      <li><b>스택</b> : React · Chart 라이브러리 · CSS</li>
+      <li><b>실시간 차트</b> : WebSocket 스트림을 <b>버퍼링 + 간격 샘플링</b> 후 최소 렌더</li>
+      <li><b>체결 UX</b> : 매수/매도 폼, <b>보유 코인/잔액</b> 실시간 반영, 체결 알림</li>
+      <li><b>인증</b> : <b>카카오 로그인</b> 기반 접근 제어, 보호 라우트/버튼 노출 제어</li>
+      <li><b>에러/로딩</b> : 스켈레톤/토스트/재시도 버튼로 사용자 피드백 강화</li>
+    </ul>
+  </section>
+
+  <section class="block issues">
+    <h4>문제 & 해결</h4>
+    <ul class="split">
+      <li>
+        <div class="tag">프론트</div>
+        <b>실시간 차트 프레임 드랍</b> → <b>버퍼링·샘플링</b> + 가상화 영역만 업데이트로 FPS 안정
+      </li>
+      <li>
+        <div class="tag">백엔드</div>
+        <b>체결/잔액 불일치 위험</b> → DB 트랜잭션으로 <b>orders·fills·balances</b> 동시 커밋/롤백
+      </li>
+      <li>
+        <div class="tag">운영</div>
+        <b>외부 API 단절</b> → 서버 <b>프록시</b>로 재시도/백오프 정책, 장애 시 폴백 메시지
+      </li>
+    </ul>
+  </section>
+
+  <section class="block now-next">
+    <h4>현재 상태 & 향후 계획</h4>
+    <ul>
+      <li><b>매수 완료, 매도 구현 중</b> — 체결 성공 시 <b>잔액 감소·보유 코인 증가</b>가 한 트랜잭션으로 처리되게 보완</li>
+      <li><b>배포 예정</b> — 매도 안정화 후 모니터링/알림/대시보드 연동 → 성능지표(p95, 드랍율) 수집</li>
+    </ul>
+  </section>
+
+  <section class="block learnings">
+    <h4>배운 점</h4>
+    <ul>
+      <li>실시간 스트림 처리와 <b>렌더링 최적화 패턴</b> 정립</li>
+      <li>거래·잔액의 <b>일관성/원자성</b> 보장의 중요성</li>
+      <li>WebSocket ↔ UI <b>동기화</b> 전략 수립과 에러 복원력</li>
+    </ul>
+  </section>
+</div>
+
               </template>
               
             </div>
@@ -567,7 +665,7 @@ a, a:hover, a:focus, a:visited {
                 </div>
               </div>
               <div class="proj-meta">
-                <div class="date">2025.05.17 – 2025.06.01</div>
+                <div class="date">2025.05.17 – 2025.06.01 (15일)</div>
                 <h3>감정 일기장</h3>
                 <p><span class="about-dot">About.</span> 감정을 기록하고 통계/추천을 제공하는 개인 일기 서비스.</p>
                 <p><span class="about-dot">Detail.</span> Redux, 에디터, 이미지 업로드, 스트릭/통계.</p>
@@ -604,48 +702,73 @@ a, a:hover, a:focus, a:visited {
                 
                     <!-- Right: 상세 내용 -->
                     <div class="modal-text">
-                      <h4>핵심 기능</h4>
-                      <ul>
-                        <li>일기 작성·수정 (감정 선택 + AI 감정 자동 분석)</li>
-                        <li>하루 1회 작성 제한 & 감정만 기록하기 기능</li>
-                        <li>스트릭·주간 감정 통계, 활동 히트맵</li>
-                        <li>마이페이지: 총 일기 수, 팔로워/팔로잉, 요일별 작성 내역</li>
-                        <li>게시글 공개/비공개, 팔로우 기반 접근 제어</li>
-                        <li>상세 페이지: 프로필·팔로우·댓글 CRUD·랜덤 추천</li>
+                      <h4>프로젝트 개요</h4>
+                      <ul class="kv">
+                        <li><b>기간</b> : 2025.05 ~ 2025.06 / <b>인원</b> : 1명</li>
+                        <li><b>목적</b> : AI 감정 분석을 기반으로 한 감정일기 플랫폼 구현 및 사용자의 감정 패턴 시각화</li>
                       </ul>
-                
-                      <h4>담당 역할</h4>
-                      <ul>
-                        <li>일기 작성/수정, 감정 선택·자동 분석 기능 구현</li>
-                        <li>스트릭·주간 감정 통계 UI, 마이페이지 활동 시각화</li>
-                        <li>게시글 상세(프로필, 댓글 CRUD, 추천) 기능 개발</li>
-                        <li>공개/비공개·팔로우 접근 제어 로직 구현</li>
-                      </ul>
-                
-                      <h4>문제 & 해결</h4>
-                      <ul>
-                        <li>
-                          <b>AI 감정 분석 오류</b>  
-                          - 이모티콘·은어·짧은 문장에서 감정 분류 실패 또는 응답 오류(429, 500).  
-                          <u>해결</u>: 입력 전처리(특수문자·이모티콘 제거, 짧은 문장 제외) +  
-                          fallback 로직 구성으로 안정성 확보.
-                        </li>
-                        <li>
-                          <b>응답 지연·비일관성</b>  
-                          - API 요청이 길어지면서 UX 저하 발생.  
-                          <u>해결</u>: 샘플 데이터로 테스트하며 프롬프트 최적화,  
-                          분석 실패 시 기본 감정값 매핑으로 대체 처리.
-                        </li>
-                      </ul>
-                
-                      <h4>배운 점</h4>
-                      <ul>
-                        <li>NLP·프롬프트 엔지니어링의 중요성 체감 (단순 호출 이상 필요)</li>
-                        <li>실패 대응(fallback)과 입력 최적화의 필요성 학습</li>
-                        <li>실사용자 환경에서 예외 상황 고려가 필수적임을 경험</li>
-                      </ul>
+                    
+                      <section class="block backend">
+                        <h4>백엔드</h4>
+                        <ul>
+                          <li><b>스택</b> : Node.js · Express · MySQL · Sequelize · OpenAI API</li>
+                          <li><b>AI 감정 분석</b> : OpenAI API를 이용해 일기 텍스트를 <b>감정값으로 분류</b> 후 DB 저장</li>
+                          <li><b>스트릭·통계</b> : 일자별 작성 기록으로 <b>연속 작성일수, 주간 감정 통계</b> 계산</li>
+                          <li><b>작성 제한</b> : 하루 1회 작성 제약 로직 및 “감정만 기록하기” API 제공</li>
+                          <li><b>팔로우/공개제어</b> : <b>비공개/팔로우 관계 기반</b> 접근 제어 로직 처리</li>
+                        </ul>
+                      </section>
+                    
+                      <section class="block frontend">
+                        <h4>프론트엔드</h4>
+                        <ul>
+                          <li><b>스택</b> : React · Redux · Toast UI Editor · TailwindCSS</li>
+                          <li><b>일기 작성/수정</b> : 텍스트 입력 + 감정 선택, AI 자동 분석 결과 <b>실시간 반영</b></li>
+                          <li><b>통계 시각화</b> : 스트릭, 주간 감정 그래프, 활동 히트맵 UI 구성</li>
+                          <li><b>마이페이지</b> : 총 일기 수·팔로워/팔로잉·요일별 작성 내역 시각화</li>
+                          <li><b>상세 페이지</b> : 댓글 CRUD, 프로필·팔로우 UI, 랜덤 추천 일기 표시</li>
+                          <li><b>After-Write UX</b> : 하루 1회 작성 후 “<b>구름 친구 만들기</b>” 컨텐츠 노출</li>
+                        </ul>
+                      </section>
+                    
+                      <section class="block issues">
+                        <h4>문제 & 해결</h4>
+                        <ul class="split">
+                          <li>
+                            <div class="tag">백엔드</div>
+                            <b>AI 감정 분석 신뢰도·지연 문제</b>  
+                            - 이모티콘, 은어, 초단문 입력 시 오분류/429·500 오류 발생.  
+                            <u>해결</u>: 전처리(특수문자 제거, 최소 글자수 조건) + 재시도·타임아웃·<b>fallback 감정값</b> 처리.
+                          </li>
+                          <li>
+                            <div class="tag">프론트엔드</div>
+                            <b>하루 1회 작성 후 빈 화면 문제</b>  
+                            - 작성 제한 후 사용자에게 보여줄 콘텐츠 부재로 이탈 발생.  
+                            <u>해결</u>: “<b>구름 친구 만들기</b>” 컨텐츠 기획 —  
+                            과거 일기 이미지 5개를 <b>랜덤 배치·부유 애니메이션</b>으로 표현하고,  
+                            클릭 시 <b>확대 + 제목·날짜 표시</b>되는 감정 비주얼화 UI로 전환.
+                          </li>
+                        </ul>
+                      </section>
+                    
+                      <section class="block now-next">
+                        <h4>현재 상태 & 향후 계획</h4>
+                        <ul>
+                          <li>AI 감정 분석 및 구름 친구 기능 완성 — 사용자의 <b>감정 피드백 루프</b>로 활용 중</li>
+                          <li>다음 단계: <b>주간 요약 카드</b>와 감정 공유(이미지 저장/공유) 기능 확장 예정</li>
+                        </ul>
+                      </section>
+                    
+                      <section class="block learnings">
+                        <h4>배운 점</h4>
+                        <ul>
+                          <li>AI 감정 분석은 단순 API 호출이 아니라 <b>프롬프트·전처리·폴백</b>이 핵심임을 체감</li>
+                          <li><b>After-Write UX</b>를 설계해 사용자의 심리적 공백을 채우는 중요성 학습</li>
+                          <li>시각적 보상과 상호작용이 <b>재방문 동기</b>로 이어짐을 경험</li>
+                        </ul>
+                      </section>
                     </div>
-                  </div>
+                    
                 </template>
                 
               </div>
@@ -662,7 +785,7 @@ a, a:hover, a:focus, a:visited {
                 </div>
               </div>
               <div class="proj-meta">
-                <div class="date">2025.04.02 – 2025.04.17</div>
+                <div class="date">2025.04.02 – 2025.04.17 (15일)</div>
                 <h3>라이브 스트리밍 사이트</h3>
                 <p><span class="about-dot">About.</span> 친구들과 실시간으로 음악과 채팅을 공유하는 스트리밍 플랫폼.</p>
                 <p><span class="about-dot">Detail.</span> WebRTC·Socket.IO, 실시간 채팅/녹화/다시보기.</p>
@@ -701,43 +824,75 @@ a, a:hover, a:focus, a:visited {
           
                     <!-- Right: 상세 내용 -->
                     <div class="modal-text">
-                      <h4>핵심 기능</h4>
-                      <ul>
-                        <li>호스트: 방송 시작/종료, 연속 재생, 영상+채팅 동시 녹화</li>
-                        <li>시청자: 음악·채팅 실시간 동기화, 방송 종료 후 자동 리디렉션 UX</li>
-                        <li>다시보기: 녹화 영상 저장, 당시 채팅 로그 재현</li>
-                        <li>검색/재생: 음악 검색(제목·아티스트), 페이지네이션, 하단 재생바</li>
+                      <h4>프로젝트 개요</h4>
+                      <ul class="kv">
+                        <li><b>기간</b> : 2025.04 ~ 2025.05 / <b>인원</b> : 1명</li>
+                        <li><b>목적</b> : WebRTC + Socket.IO로 음악/영상/채팅을 동기화한 라이브 방송·다시보기 경험 구현</li>
                       </ul>
-          
-                      <h4>담당 역할</h4>
-                      <ul>
-                        <li>호스트 페이지: 연속 재생·채팅·녹화 동기화 기능 구현</li>
-                        <li>시청자 페이지: 실시간 동기화 및 UX 흐름 설계</li>
-                        <li>다시보기 페이지: 영상·채팅 로그 저장 및 재생 처리</li>
-                        <li>검색/재생 기능: 음악 검색, 리스트 페이지네이션, 재생바 활성화</li>
-                      </ul>
-          
-                      <h4>문제 & 해결</h4>
-                      <ul>
-                        <li>
-                          <b>문제</b>: Socket.IO만으로는 음악·영상·채팅 동시 스트리밍에 한계.  
-                          <u>해결</u>: WebRTC로 실시간 미디어 스트림 전송, Socket.IO는 채팅/제어 메시지로 분리.
-                        </li>
-                        <li>
-                          <b>문제</b>: 방송 종료 후 UX 단절 문제.  
-                          <u>해결</u>: 방송 종료 시 5초 후 자동 리디렉션 → 사용자 경험 개선.
-                        </li>
-                      </ul>
-          
-                      <h4>배운 점</h4>
-                      <ul>
-                        <li>WebRTC 기반 실시간 미디어 전송 구조 이해</li>
-                        <li>Socket.IO와 WebRTC의 역할 분리 설계 경험</li>
-                        <li>실시간 UX 설계(자동 리디렉션, 동기화 유지)의 중요성 학습</li>
-                        <li>새로운 기술(WebRTC)을 빠르게 학습·적용하는 능력 강화</li>
-                      </ul>
+                    
+                      <section class="block backend">
+                        <h4>백엔드</h4>
+                        <ul>
+                          <li><b>스택</b> : Node.js · Express · Socket.IO · WebRTC 시그널링 · Sequelize · MySQL</li>
+                          <li><b>시그널링</b> : WebRTC <b>offer/answer/ICE</b> 교환은 Socket.IO 채널로 처리</li>
+                          <li><b>녹화 저장</b> : 호스트의 <b>MediaRecorder(WebM)</b> 청크 업로드 수신 → 종료 시점에만 <b>live</b> 테이블로 메타 저장</li>
+                          <li><b>채팅 로그</b> : 방송별 <b>chat_logs</b>에 타임스탬프 보관 → 다시보기 재생 시 동기 재현</li>
+                          <li><b>검색/재생</b> : 음악 검색(제목·아티스트) API, 페이지네이션, 스트리밍 URL 발급</li>
+                          <li><b>운영</b> : 역할(호스트/시청자) 권한 체크, 방 단위 네임스페이스, 에러/종료 이벤트 로그</li>
+                        </ul>
+                      </section>
+                    
+                      <section class="block frontend">
+                        <h4>프론트엔드</h4>
+                        <ul>
+                          <li><b>스택</b> : EJS/React 가능 구조 · WebRTC(MediaStream) · MediaRecorder · Socket.IO · styled-component</li>
+                          <li><b>호스트</b> : <b>방송 시작/종료</b>, 재생 큐(연속 재생), <b>영상+채팅 동시 녹화</b> UI</li>
+                          <li><b>시청자</b> : 실시간 <b>음악·채팅 동기화</b>, <b>방송 종료 5초 후 자동 리디렉션</b> UX</li>
+                          <li><b>다시보기</b> : 저장된 영상 재생 + 당시 <b>채팅 타임라인</b> 동기 출력</li>
+                          <li><b>검색/재생</b> : 음악 검색, 페이지네이션, 하단 고정 <b>재생바</b>(전/후 스킵, 진행바)</li>
+                        </ul>
+                      </section>
+                    
+                      <section class="block issues">
+                        <h4>문제 & 해결</h4>
+                        <ul class="split">
+                          <li>
+                            <div class="tag">설계</div>
+                            <b>Socket.IO만으로 미디어 전송 한계</b> → <b>WebRTC</b>로 오디오/비디오 전송, Socket.IO는 <b>채팅·시그널·제어</b>로 역할 분리
+                          </li>
+                          <li>
+                            <div class="tag">UX</div>
+                            <b>방송 종료 후 단절감</b> → 종료 이벤트 수신 시 <b>토스트 안내 + 5초 카운트다운 리디렉션</b>
+                          </li>
+                          <li>
+                            <div class="tag">저장</div>
+                            <b>대용량 녹화 청크 처리</b> → <b>청크 업로드 + 종료 시 메타 커밋</b> 방식으로 서버 부하·부분 손상 방지
+                          </li>
+                          <li>
+                            <div class="tag">동기화</div>
+                            <b>채팅·영상 타이밍 불일치</b> → 서버 기준 <b>epoch ms</b>로 스탬프 통일, 재생 시 오프셋 보정
+                          </li>
+                        </ul>
+                      </section>
+                    
+                      <section class="block now-next">
+                        <h4>현재 상태 & 향후 계획</h4>
+                        <ul>
+                          <li>라이브/시청/다시보기 <b>엔드투엔드 흐름 구축</b>, 채팅 타임라인 동기화 완료</li>
+                          <li>다음: <b>호스트 네트워크 품질(비트레이트/해상도) 적응</b>, <b>HLS VOD 변환</b> 및 썸네일/챕터 자동생성</li>
+                        </ul>
+                      </section>
+                    
+                      <section class="block learnings">
+                        <h4>배운 점</h4>
+                        <ul>
+                          <li>WebRTC(미디어)와 Socket.IO(시그널/채팅)의 <b>역할 분리 아키텍처</b></li>
+                          <li>실시간 제품은 <b>종료·에러·리디렉션</b>까지 포함한 전체 UX 설계가 핵심</li>
+                          <li>청크 기반 녹화 저장/재생과 <b>타임스탬프 동기화</b> 패턴 체득</li>
+                        </ul>
+                      </section>
                     </div>
-                  </div>
+                    
                 </template>
               </div>
             </div>
@@ -754,7 +909,7 @@ a, a:hover, a:focus, a:visited {
                 </div>
               </div>
               <div class="proj-meta">
-                <div class="date">2023.06.07 – 2023.07.17</div>
+                <div class="date">2023.06.07 – 2023.07.17 (40일)</div>
                 <h3>쇼핑몰 프로젝트</h3>
                 <p><span class="about-dot">About.</span> 상품/장바구니/결제까지 구현된 이커머스 데모.</p>
                 <p><span class="about-dot">Detail.</span> Spring Boot + MySQL 기반 CRUD, 배포 구성.</p>
@@ -782,49 +937,68 @@ a, a:hover, a:focus, a:visited {
                 
                     <!-- Right: 상세 내용 -->
                     <div class="modal-text">
-                      <h4>핵심 기능</h4>
-                      <ul>
-                        <li>사용자 인증: 로그인/회원가입, 아이디 중복 확인, 비밀번호 유효성 검사</li>
-                        <li>리뷰 게시판: 리뷰 목록·상세 조회, 작성/수정/삭제, 로그인 사용자 조건부 글쓰기 버튼</li>
-                        <li>문의 게시판: 댓글 CRUD(등록/수정/삭제)로 사용자 간 소통 강화</li>
-                        <li>UI/UX: Thymeleaf 기반 동적 렌더링, 사용자 친화적 화면 설계</li>
+                      <h4>프로젝트 개요</h4>
+                      <ul class="kv">
+                        <li><b>기간</b> : 2023.06.07 ~ 2023.07.17 (40일) / <b>인원</b> : 5명</li>
+                        <li><b>목적</b> : Spring Boot 기반으로 상품 CRUD, 회원 인증, 게시판 등 이커머스 핵심 기능을 직접 구현하며 협업과 웹 서비스 구조를 학습</li>
                       </ul>
-                
-                      <h4>담당 역할</h4>
-                      <ul>
-                        <li>사용자 인증 로직 구현 및 예외 처리/상태 관리</li>
-                        <li>리뷰 게시판 CRUD + 로그인 조건부 UI 처리</li>
-                        <li>문의 게시판 댓글 CRUD 기능 개발</li>
-                      </ul>
-                
-                      <h4>문제 & 해결</h4>
-                      <ul>
-                        <li>
-                          <b>문제</b>: 팀 협업 과정에서 코드 구조와 구현 방식이 달라 소통 혼선 발생.  
-                          <u>해결</u>: 기능 분담 전 회의에서 역할·파일 구조·데이터 명세를 먼저 합의하고,  
-                          진행 중에도 변경 사항을 공유하여 충돌 최소화.
-                        </li>
-                        <li>
-                          <b>문제</b>: 온라인 협업 환경에서 요구사항 이해 차이로 불필요한 수정 작업 발생.  
-                          <u>해결</u>: 기능별 상세 문서화 및 공통 용어 사용으로 의사소통 기준을 통일.
-                        </li>
-                      </ul>
-                
-                      <h4>배운 점</h4>
-                      <ul>
-                        <li>협업 초기 기획·커뮤니케이션 단계의 중요성을 체감</li>
-                        <li>작은 변경 사항이라도 팀과 공유해야 생산성이 높아진다는 교훈</li>
-                        <li>협업 시 명확한 합의와 역할 정의가 이후 개발 속도·품질에 직결됨을 경험</li>
-                      </ul>
+                    
+                      <section class="block backend">
+                        <h4>백엔드</h4>
+                        <ul>
+                          <li><b>스택</b> : Spring Boot · JPA · MariaDB · CloudType</li>
+                          <li><b>데이터 모델링</b> : 상품, 사용자, 리뷰, 문의 게시판 테이블 설계 및 관계 설정</li>
+                          <li><b>회원 인증</b> : 로그인/회원가입, 아이디 중복 확인, 비밀번호 유효성 검사</li>
+                          <li><b>게시판 로직</b> : 리뷰/문의 CRUD, 댓글 작성·수정·삭제 API 구현</li>
+                          <li><b>예외 처리</b> : 로그인 실패·입력 오류에 대한 Validation 및 상태코드 관리</li>
+                        </ul>
+                      </section>
+                    
+                      <section class="block frontend">
+                        <h4>프론트엔드</h4>
+                        <ul>
+                          <li><b>스택</b> : Thymeleaf · HTML · CSS · JavaScript</li>
+                          <li><b>UI/UX</b> : 로그인 상태에 따른 버튼 노출, 입력 폼 검증, 사용자 친화적 화면 구성</li>
+                          <li><b>리뷰 게시판</b> : 목록·상세·작성 UI 및 조건부 글쓰기 버튼 표시</li>
+                          <li><b>문의 게시판</b> : 댓글 CRUD 인터페이스, 수정/삭제 버튼 동적 렌더링</li>
+                          <li><b>배포</b> : AWS EC2를 통해 프로젝트 배포 및 테스트 환경 구성</li>
+                        </ul>
+                      </section>
+                    
+                      <section class="block issues">
+                        <h4>문제 & 해결</h4>
+                        <ul class="split">
+                          <li>
+                            <div class="tag">협업</div>
+                            <b>코드 구조·방식 불일치로 혼선</b> → 초기 회의에서 <b>역할·파일 구조·데이터 명세</b>를 합의하고,  
+                            진행 중에도 <b>변경 사항 공유</b>로 충돌 최소화
+                          </li>
+                          <li>
+                            <div class="tag">의사소통</div>
+                            <b>요구사항 이해 차이로 중복 수정 발생</b> → 기능별 상세 문서화 및 <b>공통 용어 정의</b>로 정합성 확보
+                          </li>
+                          <li>
+                            <div class="tag">UI</div>
+                            <b>로그인 조건부 노출 혼란</b> → 세션 기반 <b>조건부 렌더링</b>으로 상태 일관성 유지
+                          </li>
+                        </ul>
+                      </section>
+                    
+                      <section class="block learnings">
+                        <h4>배운 점</h4>
+                        <ul>
+                          <li>협업 초기의 <b>기획·명세 정리</b>가 전체 개발 속도와 품질을 좌우함을 체감</li>
+                          <li>작은 변경이라도 공유하는 <b>소통 루틴</b>이 유지보수 효율을 높인다는 점 학습</li>
+                          <li>Spring Boot + JPA 기반 CRUD와 <b>협업 워크플로우</b> 경험 축적</li>
+                        </ul>
+                      </section>
                     </div>
-                  </div>
+                    
                 </template>
                 
               </div>
             </div>
           </div>
-
-          <!-- Slide 5 : SA 거래소 -->
 
         </div><!-- /slides -->
 
@@ -838,66 +1012,75 @@ a, a:hover, a:focus, a:visited {
     <div class="container">
       <h2 class="title">TECH STACK</h2>
       <p class="sec-note">(Frontend / Backend & DB / Etc)</p>
-
+  
+      <!-- Legend -->
+      <div class="lv-legend">
+        <span class="legend-chip lv1">LV1 언어중에 잘쓰는 편</span>
+        <span class="legend-chip lv2">LV2 그래도 어느정도 쓰는법</span>
+        <span class="legend-chip lv3">LV3 조금 아는것</span>
+        <span class="legend-chip lv4">LV4 간단하게 써본것</span>
+      </div>
+  
       <div class="stack-grid">
         <div class="stack-card">
           <h4>Frontend</h4>
           <div class="skill-badges">
-            <span class="chip"><i class="devicon-react-original colored"></i>React</span>
-            <span class="chip"><i class="devicon-nextjs-plain colored"></i>Next.js</span>
-            <span class="chip"><i class="devicon-typescript-plain colored"></i>TypeScript</span>
-            <span class="chip"><i class="devicon-javascript-plain colored"></i>JavaScript(ES6+)</span>
-            <span class="chip"><i class="devicon-tailwindcss-plain colored"></i>TailwindCSS</span>
-            <span class="chip"><i class="devicon-redux-original colored"></i>Redux</span>
-            <span class="chip"><i class="devicon-html5-plain colored"></i>HTML</span>
-            <span class="chip"><i class="devicon-css3-plain colored"></i>CSS</span>
-            <span class="chip"><i class="devicon-chartjs-plain colored"></i>Chart.js / Lightweight Charts</span>
+            <span class="chip lv1"><i class="devicon-react-original colored"></i>React</span>
+            <span class="chip lv2"><i class="devicon-nextjs-plain colored"></i>Next.js</span>
+            <span class="chip lv1"><i class="devicon-typescript-plain colored"></i>TypeScript</span>
+            <span class="chip lv1"><i class="devicon-javascript-plain colored"></i>JavaScript(ES6+)</span>
+            <span class="chip lv2"><i class="devicon-tailwindcss-plain colored"></i>TailwindCSS</span>
+            <span class="chip lv3"><i class="devicon-redux-original colored"></i>Redux</span>
+            <span class="chip lv1"><i class="devicon-html5-plain colored"></i>HTML</span>
+            <span class="chip lv1"><i class="devicon-css3-plain colored"></i>CSS</span>
+            <span class="chip lv3"><i class="devicon-chartjs-plain colored"></i>Chart.js / Lightweight Charts</span>
           </div>
         </div>
-
+  
         <div class="stack-card">
           <h4>Backend</h4>
           <div class="skill-badges">
-            <span class="chip"><i class="devicon-nestjs-plain colored"></i>NestJS</span>
-            <span class="chip"><i class="devicon-nodejs-plain colored"></i>Node.js</span>
-            <span class="chip"><i class="devicon-express-original colored"></i>Express</span>
-            <span class="chip"><i class="devicon-postgresql-plain colored"></i>PostgreSQL</span>
-            <span class="chip"><i class="devicon-mysql-plain colored"></i>MySQL</span>
-            <span class="chip"><i class="devicon-mariadb-plain colored"></i>MariaDB</span>
-            <span class="chip">Drizzle ORM</span>
-            <span class="chip">Sequelize</span>
-            <span class="chip"><i class="devicon-java-plain colored"></i>Java</span>
-            <span class="chip"><i class="devicon-spring-plain colored"></i>Spring Boot</span>
-            <span class="chip">JPA</span>
-            <span class="chip"><i class="devicon-thymeleaf-plain colored"></i>Thymeleaf</span>
-            <span class="chip">JSP</span>
-            <span class="chip">JWT / OAuth</span>
-            <span class="chip">Swagger</span>
+            <span class="chip lv2"><i class="devicon-nestjs-plain colored"></i>NestJS</span>
+            <span class="chip lv1"><i class="devicon-nodejs-plain colored"></i>Node.js</span>
+            <span class="chip lv2"><i class="devicon-express-original colored"></i>Express</span>
+            <span class="chip lv2"><i class="devicon-postgresql-plain colored"></i>PostgreSQL</span>
+            <span class="chip lv3"><i class="devicon-mysql-plain colored"></i>MySQL</span>
+            <span class="chip lv3"><i class="devicon-mariadb-plain colored"></i>MariaDB</span>
+            <span class="chip lv3">Drizzle ORM</span>
+            <span class="chip lv3">Sequelize</span>
+            <span class="chip lv4"><i class="devicon-java-plain colored"></i>Java</span>
+            <span class="chip lv4"><i class="devicon-spring-plain colored"></i>Spring Boot</span>
+            <span class="chip lv4">JPA</span>
+            <span class="chip lv4"><i class="devicon-thymeleaf-plain colored"></i>Thymeleaf</span>
+            <span class="chip lv4">JSP</span>
+            <span class="chip lv3">JWT / OAuth</span>
+            <span class="chip lv3">Swagger</span>
           </div>
         </div>
-
+  
         <div class="stack-card">
           <h4>ETC</h4>
           <div class="skill-badges">
-            <span class="chip"><i class="devicon-solidity-plain"></i>Solidity</span>
-            <span class="chip"><i class="devicon-hardhat-plain"></i>Hardhat</span>
-            <span class="chip">Web3.js / Ethers.js</span>
-            <span class="chip"><i class="devicon-amazonwebservices-plain"></i>AWS(EC2/S3)</span>
-            <span class="chip"><i class="devicon-nginx-original"></i>Nginx</span>
-            <span class="chip">PM2</span>
-            <span class="chip"><i class="devicon-github-original"></i>Git/GitHub</span>
-            <span class="chip"><i class="devicon-notion-plain"></i>Notion</span>
-            <span class="chip"><i class="devicon-slack-plain"></i>Slack</span>
-            <span class="chip"><i class="devicon-figma-plain"></i>Figma</span>
-            <span class="chip"><i class="devicon-postman-plain"></i>Postman</span>
-            <span class="chip">Upbit Open API</span>
-            <span class="chip">OpenAI API</span>
-            <span class="chip">국세청 사업자 인증 API</span>
+            <span class="chip lv3"><i class="devicon-solidity-plain"></i>Solidity</span>
+            <span class="chip lv2"><i class="devicon-hardhat-plain"></i>Hardhat</span>
+            <span class="chip lv3">Web3.js / Ethers.js</span>
+            <span class="chip lv3"><i class="devicon-amazonwebservices-plain"></i>AWS(EC2/S3)</span>
+            <span class="chip lv3"><i class="devicon-nginx-original"></i>Nginx</span>
+            <span class="chip lv3">PM2</span>
+            <span class="chip lv1"><i class="devicon-github-original"></i>Git/GitHub</span>
+            <span class="chip lv4"><i class="devicon-notion-plain"></i>Notion</span>
+            <span class="chip lv4"><i class="devicon-slack-plain"></i>Slack</span>
+            <span class="chip lv4"><i class="devicon-figma-plain"></i>Figma</span>
+            <span class="chip lv3"><i class="devicon-postman-plain"></i>Postman</span>
+            <span class="chip lv2">Upbit Open API</span>
+            <span class="chip lv2">OpenAI API</span>
+            <span class="chip lv2">국세청 사업자 인증 API</span>
           </div>
         </div>
       </div>
     </div>
   </section>
+  
 
   <!-- WHY CHOOSE ME -->
   <section id="why">
