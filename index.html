@@ -533,7 +533,118 @@ a, a:hover, a:focus, a:visited {
         <button class="arrow next" aria-label="다음">&rarr;</button>
 
         <div class="slides">
-          <!-- Slide 1 : MPS -->
+          <!-- Slide 1 : SA 거래소 -->
+          <div class="slide">
+          <div class="proj-wrap">
+            <div class="laptop">
+              <div class="screen" tabindex="0" role="button" aria-label="SA 거래소 자세히 보기">
+                <img src="SA거래소.png" alt="블록체인 모의 거래소">
+                <div class="screen-overlay">자세히 보기</div>
+              </div>
+            </div>
+            <div class="proj-meta">
+              <div class="date">2026.09.05 – 2026.09.20 (15일)</div>
+              <h3>SA 거래소</h3>
+              <p><span class="about-dot">About.</span> 업비트 API·실시간 차트 기반 모의 거래.</p>
+              <p><span class="about-dot">Detail.</span> 매수/매도, 자산 관리, 알림, 실시간 시세 구현.</p>
+              <div class="stack">
+                <span class="chip">React</span><span class="chip">Node.js</span><span class="chip">Solidity</span><span class="chip">Web3.js</span><span class="chip">PostgreSQL</span><span class="chip">Lightweight Charts</span><span class="chip">Socket.IO</span><span class="chip">AI Codex</span>
+              </div>
+
+              <template class="more-tpl">
+              
+                <div class="modal-grid two-cols">
+                  <!-- Left: 이미지 + 소개만 -->
+                  <div class="modal-col-left">
+                    <div class="modal-cover">
+                      <img src="SA거래소.png" alt="블록체인 모의 거래소 시연">
+                    </div>
+              
+                    <div class="modal-intro">
+                      <h4>소개</h4>
+                      <p>
+                        주식 모의투자를 웹에서 체험할 수 있도록 실시간 시세, 체결(매수), 보유
+                        자산, 알림을 구현한 모의 거래소입니다. 블록체인 환경을 접목해
+                        실제 토큰 발행·교환 흐름을 경험할 수 있도록 설계했습니다.
+                      </p>
+                    </div>
+                  </div>
+              
+                  <!-- Right: 개요 · 역할 · 문제/해결 · 현재상태/계획 · 배운점 -->
+<!-- Right: 백엔드(위) · 프론트엔드(아래) · 문제/해결 · 현재상태/계획 · 배운점 -->
+<div class="modal-text">
+  <h4>프로젝트 개요</h4>
+  <ul class="kv">
+    <li><b>기간</b> : 2026.09.05 ~ 2026.09.20 / <b>인원</b> : 1명</li>
+    <li><b>목적</b> : 실시간 시세 반영·체결(매수/매도)·자산 관리 UX 구현 + 토큰 발행/교환 체험</li>
+  </ul>
+
+  <section class="block backend">
+    <h4>백엔드</h4>
+    <ul>
+      <li><b>스택</b> : Node.js · MySQL · Express · Hardhat · Solidity</li>
+      <li><b>시세 프록시</b> : 업비트 <b>WebSocket</b> 수신 → 서버에서 정제/스로틀 → 클라 전달</li>
+      <li><b>거래 모델</b> : <b>orders / fills / balances</b> 스키마로 체결·잔액 <b>원자성</b> 보장 설계</li>
+      <li><b>토큰</b> : <b>KRW / BTC</b> ERC20 발행, 1:1 환산 규칙으로 장부 일관성 유지</li>
+      <li><b>보안/운영</b> : 환경변수 분리, 에러/체결 로그, 배포 시 롤백 전략 마련</li>
+    </ul>
+  </section>
+
+  <section class="block frontend">
+    <h4>프론트엔드</h4>
+    <ul>
+      <li><b>스택</b> : React · Chart 라이브러리 · CSS</li>
+      <li><b>실시간 차트</b> : WebSocket 스트림을 <b>버퍼링 + 간격 샘플링</b> 후 최소 렌더</li>
+      <li><b>체결 UX</b> : 매수/매도 폼, <b>보유 코인/잔액</b> 실시간 반영, 체결 알림</li>
+      <li><b>AI 코덱스 활용</b> : 기능 구현과 오류 분석 과정에서 코드 작성·개선을 보조</li>
+      <li><b>인증</b> : <b>카카오 로그인</b> 기반 접근 제어, 보호 라우트/버튼 노출 제어</li>
+      <li><b>에러/로딩</b> : 스켈레톤/토스트/재시도 버튼로 사용자 피드백 강화</li>
+    </ul>
+  </section>
+
+  <section class="block issues">
+    <h4>문제 & 해결</h4>
+    <ul class="split">
+      <li>
+        <div class="tag">프론트</div>
+        <b>실시간 차트 프레임 드랍</b> → <b>버퍼링·샘플링</b> + 가상화 영역만 업데이트로 FPS 안정
+      </li>
+      <li>
+        <div class="tag">백엔드</div>
+        <b>체결/잔액 불일치 위험</b> → DB 트랜잭션으로 <b>orders·fills·balances</b> 동시 커밋/롤백
+      </li>
+      <li>
+        <div class="tag">운영</div>
+        <b>외부 API 단절</b> → 서버 <b>프록시</b>로 재시도/백오프 정책, 장애 시 폴백 메시지
+      </li>
+    </ul>
+  </section>
+
+  <section class="block now-next">
+    <h4>현재 상태 & 향후 계획</h4>
+    <ul>
+      <li><b>매수 기능 구현 완료</b> — 체결 성공 시 <b>잔액 감소·보유 코인 증가</b>가 반영되고 체결 내역과 알림을 제공</li>
+      <li><b>배포 예정</b> — 매도 안정화 후 모니터링/알림/대시보드 연동 → 성능지표(p95, 드랍율) 수집</li>
+    </ul>
+  </section>
+
+  <section class="block learnings">
+    <h4>배운 점</h4>
+    <ul>
+      <li>실시간 스트림 처리와 <b>렌더링 최적화 패턴</b> 정립</li>
+      <li>거래·잔액의 <b>일관성/원자성</b> 보장의 중요성</li>
+      <li>WebSocket ↔ UI <b>동기화</b> 전략 수립과 에러 복원력</li>
+    </ul>
+  </section>
+</div>
+
+              </template>
+              
+            </div>
+          </div>
+        </div>
+
+          <!-- Slide 2 : 감정 일기장 -->
           <div class="slide">
           <div class="proj-wrap">
             <div class="laptop">
@@ -650,116 +761,6 @@ a, a:hover, a:focus, a:visited {
         </div>
 
         <div class="slide">
-          <div class="proj-wrap">
-            <div class="laptop">
-              <div class="screen" tabindex="0" role="button" aria-label="SA 거래소 자세히 보기">
-                <img src="SA거래소.png" alt="블록체인 모의 거래소">
-                <div class="screen-overlay">자세히 보기</div>
-              </div>
-            </div>
-            <div class="proj-meta">
-              <div class="date">2025.07.04 – 2025.07.17 (13일)</div>
-              <h3>SA 거래소</h3>
-              <p><span class="about-dot">About.</span> 업비트 API·실시간 차트 기반 모의 거래.</p>
-              <p><span class="about-dot">Detail.</span> 매수/매도, 자산, 알림, 실시간 시세.</p>
-              <div class="stack">
-                <span class="chip">React</span><span class="chip">Node.js</span><span class="chip">Solidity</span><span class="chip">Web3.js</span><span class="chip">PostgreSQL</span><span class="chip">Lightweight Charts</span><span class="chip">Socket.IO</span>
-              </div>
-
-              <template class="more-tpl">
-              
-                <div class="modal-grid two-cols">
-                  <!-- Left: 이미지 + 소개만 -->
-                  <div class="modal-col-left">
-                    <div class="modal-cover">
-                      <img src="SA거래소.png" alt="블록체인 모의 거래소 시연">
-                    </div>
-              
-                    <div class="modal-intro">
-                      <h4>소개</h4>
-                      <p>
-                        주식 모의투자를 웹에서 체험할 수 있도록 실시간 시세, 체결(매수), 보유
-                        자산, 알림을 구현한 모의 거래소입니다. 블록체인 환경을 접목해
-                        실제 토큰 발행·교환 흐름을 경험할 수 있도록 설계했습니다.
-                      </p>
-                    </div>
-                  </div>
-              
-                  <!-- Right: 개요 · 역할 · 문제/해결 · 현재상태/계획 · 배운점 -->
-<!-- Right: 백엔드(위) · 프론트엔드(아래) · 문제/해결 · 현재상태/계획 · 배운점 -->
-<div class="modal-text">
-  <h4>프로젝트 개요</h4>
-  <ul class="kv">
-    <li><b>기간</b> : 2025.06.04 ~ 2025.07.17 / <b>인원</b> : 1명</li>
-    <li><b>목적</b> : 실시간 시세 반영·체결(매수/매도)·자산 관리 UX 구현 + 토큰 발행/교환 체험</li>
-  </ul>
-
-  <section class="block backend">
-    <h4>백엔드</h4>
-    <ul>
-      <li><b>스택</b> : Node.js · MySQL · Express · Hardhat · Solidity</li>
-      <li><b>시세 프록시</b> : 업비트 <b>WebSocket</b> 수신 → 서버에서 정제/스로틀 → 클라 전달</li>
-      <li><b>거래 모델</b> : <b>orders / fills / balances</b> 스키마로 체결·잔액 <b>원자성</b> 보장 설계</li>
-      <li><b>토큰</b> : <b>KRW / BTC</b> ERC20 발행, 1:1 환산 규칙으로 장부 일관성 유지</li>
-      <li><b>보안/운영</b> : 환경변수 분리, 에러/체결 로그, 배포 시 롤백 전략 마련</li>
-    </ul>
-  </section>
-
-  <section class="block frontend">
-    <h4>프론트엔드</h4>
-    <ul>
-      <li><b>스택</b> : React · Chart 라이브러리 · CSS</li>
-      <li><b>실시간 차트</b> : WebSocket 스트림을 <b>버퍼링 + 간격 샘플링</b> 후 최소 렌더</li>
-      <li><b>체결 UX</b> : 매수/매도 폼, <b>보유 코인/잔액</b> 실시간 반영, 체결 알림</li>
-      <li><b>인증</b> : <b>카카오 로그인</b> 기반 접근 제어, 보호 라우트/버튼 노출 제어</li>
-      <li><b>에러/로딩</b> : 스켈레톤/토스트/재시도 버튼로 사용자 피드백 강화</li>
-    </ul>
-  </section>
-
-  <section class="block issues">
-    <h4>문제 & 해결</h4>
-    <ul class="split">
-      <li>
-        <div class="tag">프론트</div>
-        <b>실시간 차트 프레임 드랍</b> → <b>버퍼링·샘플링</b> + 가상화 영역만 업데이트로 FPS 안정
-      </li>
-      <li>
-        <div class="tag">백엔드</div>
-        <b>체결/잔액 불일치 위험</b> → DB 트랜잭션으로 <b>orders·fills·balances</b> 동시 커밋/롤백
-      </li>
-      <li>
-        <div class="tag">운영</div>
-        <b>외부 API 단절</b> → 서버 <b>프록시</b>로 재시도/백오프 정책, 장애 시 폴백 메시지
-      </li>
-    </ul>
-  </section>
-
-  <section class="block now-next">
-    <h4>현재 상태 & 향후 계획</h4>
-    <ul>
-      <li><b>매수 완료, 매도 구현 중</b> — 체결 성공 시 <b>잔액 감소·보유 코인 증가</b>가 한 트랜잭션으로 처리되게 보완</li>
-      <li><b>배포 예정</b> — 매도 안정화 후 모니터링/알림/대시보드 연동 → 성능지표(p95, 드랍율) 수집</li>
-    </ul>
-  </section>
-
-  <section class="block learnings">
-    <h4>배운 점</h4>
-    <ul>
-      <li>실시간 스트림 처리와 <b>렌더링 최적화 패턴</b> 정립</li>
-      <li>거래·잔액의 <b>일관성/원자성</b> 보장의 중요성</li>
-      <li>WebSocket ↔ UI <b>동기화</b> 전략 수립과 에러 복원력</li>
-    </ul>
-  </section>
-</div>
-
-              </template>
-              
-            </div>
-          </div>
-        </div>
-
-          <!-- Slide 2 : 감정 일기장 -->
-          <div class="slide">
             <div class="proj-wrap">
               <div class="laptop">
                 <div class="screen" tabindex="0" role="button" aria-label="감정 일기장 자세히 보기">
